@@ -1,0 +1,83 @@
+// "out": "../css/flex-grid.css", "compress": true
+@columns: 12;
+@offset: 30px;
+@fields: 30px;
+@offset_one_side: (@offset / 2);
+@wrapper-width: 1290px;
+@max-width: 1440px;
+
+// * {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+// }
+
+a {
+  text-decoration: none;
+}
+
+.clearfix() {
+  &::after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+}
+
+.wrapper() {
+  padding-left: @fields;
+  padding-right: @fields;
+  margin: 0 auto;
+  max-width: @wrapper-width;
+}
+
+.wrapper {
+  .wrapper();
+  @media screen and (max-width: 1200px) {
+    max-width: 960px;
+  }
+  @media screen and (max-width: 992px) {
+    max-width: 720px;
+  }
+  @media screen and (max-width: 768px) {
+    max-width: 540px;
+  }
+  @media screen and (max-width: 576px) {
+    max-width: 100%;
+  }
+}
+
+.row-offests() {
+  margin-left: (@offset_one_side * -1);
+  margin-right: (@offset_one_side * -1);
+}
+
+.col-offsets(@type) {
+  @{type}-left: @offset_one_side;
+  @{type}-right: @offset_one_side;
+}
+
+.row-flex() {
+  display: flex;
+  flex-direction: row;
+  .row-offests();
+}
+
+.col() {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  .col-offsets(margin);
+}
+
+.size(@n) when (default()) {
+  @val: @n / 12  * 100%;
+  width: ~"calc(@{val} - @{offset})"
+  // max-width: calc(~"(@{i}/12 *100%) - @{gutter}*2");
+  // flex: 0 0 calc(~"(@{i}/12 *100%) - @{gutter}*2");
+}
+//
+// .col(@i) when (@i=0) {
+//   flex: 0 0 auto;
+//   margin-left: 0;
+//   margin-right: 0;
+// }
